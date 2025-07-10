@@ -1,0 +1,40 @@
+my_hello/
+├── __init__.py
+├── __manifest__.py
+├── models/
+│   └── __init__.py
+│   └── hello.py
+└── views/
+    └── hello_views.xml
+{
+    "name": "Hello World",
+    "version": "1.0",
+    "depends": ["base"],
+    "data": ["views/hello_views.xml"],
+    "installable": True,
+}
+from odoo import models, fields
+
+class Hello(models.Model):
+    _name = "my.hello"
+    _description = "Hello World Model"
+
+    name = fields.Char("Greeting", default="Hello World")
+<odoo>
+  <record id="view_form_hello" model="ir.ui.view">
+    <field name="name">my.hello.form</field>
+    <field name="model">my.hello</field>
+    <field name="arch" type="xml">
+      <form string="Hello">
+        <group>
+          <field name="name"/>
+        </group>
+      </form>
+    </field>
+  </record>
+  <menuitem id="menu_hello" name="Hello"/>
+  <act_window id="action_hello"
+              name="Hello"
+              res_model="my.hello"
+              view_mode="form,tree"/>
+</odoo>
